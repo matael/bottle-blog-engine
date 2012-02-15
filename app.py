@@ -8,7 +8,7 @@ from bottle import\
         Bottle,\
         run,\
         route,\
-        template,\
+        jinja2_template as template,\
         static_file,\
         error,\
         debug,\
@@ -25,6 +25,15 @@ debug(True)
 def static(filename):
     """ Serve static files """
     return static_file(filename, root='{}/static'.format(ROOT_PATH))
+
+
+@application.route('/')
+def home():
+    """ Homepage view """
+    posts_list = os.listdir("{0}/posts".format(ROOT_PATH))
+    posts_list.sort()
+    posts_list.reverse()
+    return template('templates/home.html', posts_list=posts_list)
 
 
 def main():

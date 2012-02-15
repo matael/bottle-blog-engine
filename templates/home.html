@@ -1,0 +1,12 @@
+{% extends 'templates/base.html' %}
+{% block body %}
+    <ul>
+        {% for item in posts_list %}
+            <li>{{item}}</li>
+        {% endfor %} 
+    </ul>
+{% endblock %}
+
+{#
+ vim: ft=htmldjango
+#}
