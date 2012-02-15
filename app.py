@@ -66,6 +66,31 @@ def view_post(type, day, month, year, name):
     return template('templates/{}.html'.format(type), text=text, meta=meta)
 
 
+@application.route('/c/<name>')
+def view_category(name):
+    """ List all articles published under a given category """
+    matches = {'posts':[], 'breves':[]}# list of matching breves/posts
+    reading = [] # just handy list for metadata reading
+
+    # processing for posts
+    for k in matches.keys():
+        for f in os.listdir("{}/".format(k)):
+            current_file = open("{}/{}".format(k,f),'r')
+            line = current_file.readline()
+            while line!="\n":
+                reading.append(line)
+                line = current_file.readline()
+            current_file.close()
+            reading = yaml.load(''.join(reading))
+            if name in reading['tags']:
+                (matches[k]).append((re.sub(r'-','/',f).rstrip('.mkd'),\
+                                     (re.sub(r'\d+-\d+-\d+-','',f)).rstrip('.mkd')))
+            reading = []
+    if matches['posts'] == [] and matches['breves'] == []: # avoid strange behaviour when category isn't found
+        return template("templates/category.html", category=name)
+    return template("templates/category.html", category=name, matches=matches)
+
+
 
 def main():
     """ Run the application
