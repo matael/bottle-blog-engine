@@ -39,12 +39,10 @@ def home():
     return template('templates/home.html', posts_list=posts_list)
 
 
-@application.route('/p/<name>')
-def view_post(name):
-    """ Returns a post identified by the regex above """
-    text = open("posts/{0}".format(name),'r').read()
-    text = markdown(text)
-    return template('templates/post.html', text=text)
+@application.route('/<type:re:[p|b]>/<month:int>/<day:int>/<year:int>/<name>')
+def view_post(type, day, month, year, name):
+    """ Returns a post identified by its name above """
+    filename = "{}-{}-{}-{}.mkd".format(month,day,year,name)
 
 
 def main():
