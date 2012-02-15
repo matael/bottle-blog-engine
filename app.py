@@ -36,6 +36,14 @@ def home():
     return template('templates/home.html', posts_list=posts_list)
 
 
+@application.route('/p/<name>')
+def view_post(name):
+    """ Returns a post identified by the regex above """
+    text = open("posts/{0}".format(name),'r').read()
+    text = markdown(text)
+    return template('templates/post.html', text=text)
+
+
 def main():
     run(application, host='0.0.0.0', port=8080)
     return 0
