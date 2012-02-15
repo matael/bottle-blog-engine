@@ -33,7 +33,7 @@ def static(filename):
 @application.route('/')
 def home():
     """ Homepage view """
-    posts_list = os.listdir("{0}/posts".format(ROOT_PATH))
+    posts_list = os.listdir("{0}/posts/".format(ROOT_PATH))
     posts_list.sort()
     posts_list.reverse()
     return template('templates/home.html', posts_list=posts_list)
