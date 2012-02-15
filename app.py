@@ -45,8 +45,14 @@ def view_post(name):
 
 
 def main():
+    """ Run the application
+
+    Use : 
+        $ python app.py
+    """
     run(application, host='0.0.0.0', port=8080)
     return 0
 
-if __name__ == '__main__': main()
+if __name__ == '__main__':
+    main()
 
