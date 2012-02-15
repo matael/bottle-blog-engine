@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #-*- encoding: utf-8 -*-
+from settings import *
 import sys
 import os
 from markdown import markdown
@@ -18,7 +19,12 @@ from bottle import\
 #os.chdir(os.path.dirname(__file__))
 
 application = Bottle()
-debug(True)    
+debug(True)
+
+@application.route('/static/<filename:path>')
+def static(filename):
+    """ Serve static files """
+    return static_file(filename, root='{}/static'.format(ROOT_PATH))
 
 
 def main():
