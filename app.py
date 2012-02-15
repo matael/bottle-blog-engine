@@ -91,6 +91,17 @@ def view_category(name):
     return template("templates/category.html", category=name, matches=matches)
 
 
+@application.route('/<name>')
+def page_view(name):
+    """ Return a markdown interpreted page """
+    try:
+        source_file = open("pages/{}.mkd".format(name),'r')
+    except IOError: # means source_file does not exists
+        raise HTTPError(404, output="The page you've requested does not exist")
+
+    # processing and template
+    return template("templates/page.html", content=markdown(source_file.read()), name=name)
+
 
 def main():
     """ Run the application
