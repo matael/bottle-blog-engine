@@ -3,6 +3,8 @@
 from settings import *
 import sys
 import os
+import yaml
+import re
 from markdown import markdown
 from bottle import\
         Bottle,\
@@ -13,7 +15,8 @@ from bottle import\
         error,\
         debug,\
         request,\
-        redirect
+        redirect,\
+        HTTPError
 
 # Uncomment to run in a WSGI server
 #os.chdir(os.path.dirname(__file__))
