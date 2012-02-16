@@ -41,23 +41,31 @@ def errors(code):
 @application.route('/')
 def home():
     """ Homepage view """
-    posts_list = os.listdir("{0}/posts/".format(ROOT_PATH))
-    posts_list.sort()
-    posts_list.reverse()
-    reading = []
-    contents_list = []
-    for p in posts_list:
-        current_file = open("posts/{}".format(p),'r')
-        line = current_file.readline()
-        while line!="\n":
-            reading.append(line)
-            line = current_file.readline()
-        current_file.close()
-        reading = yaml.load(''.join(reading))
-        contents_list.append({'title':reading['title'],'url':re.sub(r'-','/',p).rstrip(".mkd"),'meta':reading})
+    contents_lists = {'posts':[], 'breves':[]}
+    for k in contents_lists.keys():
+        items_list = os.listdir(k)
+        items_list.sort()
+        items_list.reverse()
         reading = []
+        for i in items_list:
+            current_file = open("{}/{}".format(k,i),'r')
+            line = current_file.readline()
+            while line!="\n":
+                reading.append(line)
+                line = current_file.readline()
+            reading = yaml.load(''.join(reading))
+            reading['url'] = re.sub(r'-','/',i).rstrip(".mkd")
+            line = current_file.readline()
+            slug = []
+            while line!="~\n":
+                slug.append(line)
+                line = current_file.readline()
+            reading['slug'] = ''.join(slug)
+            current_file.close()
+            (contents_lists[k]).append(reading)
+            reading = []
 
-    return template('templates/home.html', contents_list = contents_list)
+    return template('templates/home.html', contents_lists = contents_lists)
 
 
 @application.route('/<type:re:[p|b]>/<month:int>/<day:int>/<year:int>/<name>')

@@ -1,16 +1,22 @@
 {% extends 'templates/base.html' %}
 {% block body %}
     <ul>
-        {% for item in contents_list %}
-            <li><a href="/p/{{item['url']}}">{{item['title']}}</a>
-            <p>Meta :</p>
-            <ul>
-                {% for k in item['meta'].keys() %}
-                    <li>{{k}} => {{item['meta'][k]}}</li>
-                {% endfor %}
-            </ul>
-            </li>
-        {% endfor %} 
+        {% for k in contents_lists.keys() %}
+            <h2>{{k}}</h2>
+            {% for item in contents_lists[k] %}
+            <li>
+                <a href="/{% if k=='posts' %}p{% else %}b{% endif %}/{{item['url']}}">
+                    {{item['title']}}
+                </a>
+                <p>Meta :</p>
+                <ul>
+                    {% for meta in item.keys() %}
+                        <li>{{meta}} => {{item[meta]}}</li>
+                    {% endfor %}
+                </ul>
+                </li>
+            {% endfor %}
+        {% endfor %}
     </ul>
 {% endblock %}
 
