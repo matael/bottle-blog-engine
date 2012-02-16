@@ -36,7 +36,20 @@ def home():
     posts_list = os.listdir("{0}/posts/".format(ROOT_PATH))
     posts_list.sort()
     posts_list.reverse()
-    return template('templates/home.html', posts_list=posts_list)
+    reading = []
+    contents_list = []
+    for p in posts_list:
+        current_file = open("posts/{}".format(p),'r')
+        line = current_file.readline()
+        while line!="\n":
+            reading.append(line)
+            line = current_file.readline()
+        current_file.close()
+        reading = yaml.load(''.join(reading))
+        contents_list.append({'title':reading['title'],'url':re.sub(r'-','/',p).rstrip(".mkd"),'meta':reading})
+        reading = []
+
+    return template('templates/home.html', contents_list = contents_list)
 
 
 @application.route('/<type:re:[p|b]>/<month:int>/<day:int>/<year:int>/<name>')
