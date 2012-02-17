@@ -25,6 +25,7 @@ from bottle import\
 application = Bottle()
 debug(True)
 
+
 @application.route('/static/<filename:path>')
 def static(filename):
     """ Serve static files """
