@@ -1,0 +1,66 @@
+# BOttle Blog Engine -- bobe
+
+## Why ?
+
+Before this project, my blog was powered by [toto][].
+
+One day, I decided to learn ruby in order to add categories and other few things.
+I finally give up ruby and decided to reimplement a blog engine in a [bottle][]
+
+[toto]: http://cloudhead.io/toto
+[bottle]: http://bottlepy.org
+
+## How ?
+
+This tiny blog engine is written in [python][].
+As I said, it use the [bottle][] python micro web-framework.
+
+The posts, breves and pages must be written using [Markdown][].
+
+All the files must be formatted like this :
+
+    title: A sample article
+    author: matael
+    date: 10/10/2010
+    tags: [tag1, tag2]
+
+    This is my slug
+
+    ~
+
+    And the end of the article.
+
+The 4 first lines (until the first empty one `\n` specify metadata.
+They are formated using [yaml][]. 
+
+Between metadata and the `/~/` line, you can put a slug which will appear on frontpage.
+
+As you've probably already understood, you'll need the following python librairies :
+
+- [bottle][]
+- [Markdown][] ([python-markdown][])
+- [pyYaml][]
+
+[python-markdown]: http://www.freewisdom.org/projects/python-markdown
+[python]: http://python.org
+[Markdown]: http://daringfireball.net/projects/markdown
+[yaml]:http://www.yaml.org
+[pyYaml]: http://pyyaml.org
+
+## What ?
+
+bobe is well-named : it's a tiny blog-engine written over [bottle][].
+
+This application runs over a WSGI-enabled web-server and allows you to :
+
+- write posts
+- write breves (small posts)
+- write pages
+
+### Why breves and posts ?
+
+Because sometimes it interresting to manage differently long and brieves posts, it's nice to separate them.
+
+That you have to know is that breves and posts share the same management and the number of different types will soon be extended (hashtables are... __powerfull__).
+
+
