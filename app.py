@@ -48,7 +48,7 @@ def home():
         items_list.sort()
         items_list.reverse()
         reading = []
-        for i in items_list:
+        for i in items_list[:HOMEPAGE_LIMIT]:
             current_file = open("{}/{}".format(k,i),'r')
             line = current_file.readline()
             while line!="\n":
@@ -61,7 +61,7 @@ def home():
             while line!="~\n":
                 slug.append(line)
                 line = current_file.readline()
-            reading['slug'] = ''.join(slug)
+            reading['slug'] = markdown(''.join(slug))
             current_file.close()
             (contents_lists[k]).append(reading)
             reading = []
