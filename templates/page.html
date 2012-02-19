@@ -1,8 +1,10 @@
 {% extends "templates/base.html" %}
 
-{% block title %}{{name}}{% endblock %}
+{% block title %}{{name|capitalize}}{% endblock %}
 {% block body %}
-	{{content}}
+    <article class="page">
+        {{content}}
+    </article>
 {% endblock %}
 
 {#
