@@ -1,0 +1,26 @@
+{% extends "templates/base.html" %}
+
+{% block body %}
+<article class="page">
+  <div class="header">
+	<h1>Archive</h1>
+  </div>
+  <section>
+  {% for k in contents_lists.keys() %}
+  	<h2>{{k|capitalize}}</h2>
+    <ul class="archive_list">
+	{% for item in contents_lists[k] %}
+        <li>
+        <a href="{% if k=='posts' %}p{% else %}b{% endif %}/{{ item['url'] }}">
+            {{ item['title'] }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
+  </section>
+</article>
+{% endblock %}
+
+{#
+ vim: ft=htmldjango
+#}
