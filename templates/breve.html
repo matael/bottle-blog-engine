@@ -1,13 +1,25 @@
 {% extends "templates/base.html" %}
 
 {% block body %}
-    <p> --> This is a breve <-- </p>
-    <ul>
-        {% for m in meta.keys() %}
-        <li>{{m}} => {{meta[m]}}</li>
-        {% endfor %}
-    </ul>
-    {{text}}   
+<article class="breve">
+    <div class="header">
+      <h1>{{meta['title']}}</h1>
+      <span class="date">{{meta['date']}}</span>
+      </div>
+
+      <section class="content">
+      {{text}}
+      </section>
+
+      <section class="comments">
+        {% if disqus %}
+            <div id="disqus_thread"></div>
+            <script type="text/javascript" src="http://disqus.com/forums/{{disqus}}/embed.js"> </script>
+            <noscript><a href="http://{{disqus}}.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        {% endif %}
+      </section>
+    </article>
 {% endblock %}
 
 {#
