@@ -1,23 +1,28 @@
 {% extends "templates/base.html" %}
 
 {% block body %}
-        <h1>Results for category : {{category}}</h1>
-    {% if not matches %}
-        <p>There's not any result in this category... not sure it does relaly exist</p>
-    {% else %}
-        <h2>Posts</h2>
-        <ul>
-            {% for p in matches['posts'] %}
-            <li><a href="/p/{{p[0]}}">{{p[1]}}</a></li>
+    <article class="page">
+        <div class="header">
+            <h1>{{category}}</h1>
+        </div>
+        {% if not matches %}
+            <p>There's not any result in this category... not sure it does relaly exist</p>
+            {% else %}
+            <section>
+            {% for k in matches.keys() %}
+                <h2>{{k|capitalize}}</h2>
+                <ul class="archive_list">
+                {% for item in matches[k] %}
+                    <li>
+                        <a href="{% if k=='posts' %}p{% else %}b{% endif %}/{{ item[0] }}">
+                        {{ item[1] }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
             {% endfor %}
-        </ul>
-        <h2>Breves</h2>
-        <ul>
-            {% for b in matches['breves'] %}
-            <li><a href="/b/{{b[0]}}">{{b[1]}}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+            </section>
+        {% endif %}
+    </article>
 {% endblock %}
 
 {#
