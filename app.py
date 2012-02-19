@@ -3,6 +3,7 @@
 from settings import *
 import sys
 import os
+import codecs
 import yaml
 import re
 from markdown import markdown
@@ -24,6 +25,12 @@ from bottle import\
 
 application = Bottle()
 debug(True)
+
+def create_url(filename):
+    """ Extract a correct URL from a filename """
+    fragments = (filename.rstrip('.mkd')).split('-')
+    url = '{}/{}'.format('/'.join(fragments[:3]),'-'.join(fragments[3:]))
+    return url
 
 
 @application.route('/static/<filename:path>')
@@ -49,13 +56,13 @@ def home():
         items_list.reverse()
         reading = []
         for i in items_list[:HOMEPAGE_LIMIT]:
-            current_file = open("{}/{}".format(k,i),'r')
+            current_file = codecs.open("{}/{}".format(k,i),'r', encoding='utf8')
             line = current_file.readline()
             while line!="\n":
                 reading.append(line)
                 line = current_file.readline()
             reading = yaml.load(''.join(reading))
-            reading['url'] = re.sub(r'-','/',i).rstrip(".mkd")
+            reading['url'] = create_url(i)
             line = current_file.readline()
             slug = []
             while line!="~\n":
@@ -72,7 +79,7 @@ def home():
 @application.route('/<type:re:[p|b]>/<month:int>/<day:int>/<year:int>/<name>')
 def view_post(type, day, month, year, name):
     """ Returns a post identified by its name above """
-    filename = "{}-{}-{}-{}.mkd".format(month,day,year,name)
+    filename = "{}-{}-{}-{}.mkd".format(str(month).zfill(2),str(day).zfill(2),str(year).zfill(2),name)
 
     # type of content determination
     if type == 'p': type='post'
@@ -80,18 +87,20 @@ def view_post(type, day, month, year, name):
 
     # source file fetching & processing
     try:
-        source_file = open("{}s/{}".format(type,filename),'r')
+        source_file = codecs.open("{}s/{}".format(type,filename),'r', encoding='utf8')
+        text = source_file.readlines()
+        source_file.close()
     except IOError: # means source_file does not exists
         raise HTTPError(404, output="The post you've requested does not exist")
     meta_brut = []
-    line = source_file.readline()
+    line = text[0]
     while line != "\n":
-        meta_brut.append(line)
-        line = source_file.readline()
+        meta_brut.append(text.pop(0))
+        line = text[0]
     meta = yaml.load(''.join(meta_brut))
     meta['date'] = FORMAT_DATE.format(month, day, year)
-    text = markdown(re.sub(r'~\n', '', source_file.read()))
-    source_file.close()
+    text.pop(text.index("~\n"))
+    text = markdown(''.join(text))
    
     # output
     return template('templates/{}.html'.format(type), text=text, meta=meta, disqus=DISQUS)
@@ -103,19 +112,22 @@ def view_category(name):
     matches = {'posts':[], 'breves':[]}# list of matching breves/posts
     reading = [] # just handy list for metadata reading
 
-    # processing for posts
+    # processing
     for k in matches.keys():
         for f in os.listdir("{}/".format(k)):
-            current_file = open("{}/{}".format(k,f),'r')
+            current_file = codecs.open("{}/{}".format(k,f),'r', encoding='utf8')
             line = current_file.readline()
             while line!="\n":
                 reading.append(line)
                 line = current_file.readline()
             current_file.close()
             reading = yaml.load(''.join(reading))
-            if name in reading['tags']:
-                (matches[k]).append((re.sub(r'-','/',f).rstrip('.mkd'),\
-                                     (re.sub(r'\d+-\d+-\d+-','',f)).rstrip('.mkd')))
+            try:
+                if name in reading['tags']:
+                    (matches[k]).append((re.sub(r'-','/',f).rstrip('.mkd'),\
+                                         (re.sub(r'\d+-\d+-\d+-','',f)).rstrip('.mkd')))
+            except KeyError:
+                pass
             reading = []
     if matches['posts'] == [] and matches['breves'] == []: # avoid strange behaviour when category isn't found
         return template("templates/category.html", category=name)
@@ -126,7 +138,7 @@ def view_category(name):
 def page_view(name):
     """ Return a markdown interpreted page """
     try:
-        source_file = open("pages/{}.mkd".format(name),'r')
+        source_file = codecs.open("pages/{}.mkd".format(name),'r', encoding='utf8')
     except IOError: # means source_file does not exists
         raise HTTPError(404, output="The page you've requested does not exist")
 
@@ -144,13 +156,13 @@ def archives():
         items_list.reverse()
         reading = []
         for i in items_list:
-            current_file = open("{}/{}".format(k,i),'r')
+            current_file = codecs.open("{}/{}".format(k,i),'r', encoding='utf8')
             line = current_file.readline()
             while line!="\n":
                 reading.append(line)
                 line = current_file.readline()
             reading = yaml.load(''.join(reading))
-            reading['url'] = re.sub(r'-','/',i).rstrip(".mkd")
+            reading['url'] = create_url(i)
             current_file.close()
             (contents_lists[k]).append(reading)
             reading = []
