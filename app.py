@@ -89,11 +89,12 @@ def view_post(type, day, month, year, name):
         meta_brut.append(line)
         line = source_file.readline()
     meta = yaml.load(''.join(meta_brut))
+    meta['date'] = FORMAT_DATE.format(month, day, year)
     text = markdown(re.sub(r'~\n', '', source_file.read()))
     source_file.close()
    
     # output
-    return template('templates/{}.html'.format(type), text=text, meta=meta)
+    return template('templates/{}.html'.format(type), text=text, meta=meta, disqus=DISQUS)
 
 
 @application.route('/c/<name>')
