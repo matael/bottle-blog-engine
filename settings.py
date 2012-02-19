@@ -1,6 +1,6 @@
 # Settings file for bobe
 
-ROOT_PATH='/home/matael/workspace/github/bottle-blog-engine'
+ROOT_PATH=''
 HOMEPAGE_LIMIT=10
-DISQUS='matael'
+#DISQUS=''
 FORMAT_DATE="{1}/{0}/{2}"
