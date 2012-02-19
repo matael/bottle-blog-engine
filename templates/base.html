@@ -3,11 +3,31 @@
     <head>
         <meta charset="utf8">
         <title>{% block title %}BottlePy KISS Blog{% endblock %}</title>
+        <link rel="stylesheet" media="screen" type="text/css" href="/static/css/style.css"/>
         {% block Head %}{% endblock %}
 	</head>
     <body>
+        <div id="links">
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li> | </li>
+                <li><a href="/blogs">Blogs</a></li>
+                <li> | </li>
+                <li><a href="/archives">Archives</a></li>
+                <li> | </li>
+                <li><a href="http://twitter.com/Matael">@Matael</a></li>
+                <!--<li><a href="<%= @config[:homeurl] %>/index.xml"><img class="rss" src="/rss.png"/></a></li>-->
+            </ul>
+        </div>
+        <header>
+            <h1><a href="/">Matael...</a></h1>
+        </header>
         {% block body %}
         {% endblock %}
+        <div style="clear:both"></div>
+        <footer>
+        Powered by a wonderful duo<br><a href="https://github/Matael/bottle-blog-engine">bobe</a> & <a href="http://git-scm.com/">git</a><br> Thanks to them !
+        </footer>
 	</body>
 </html>
 
