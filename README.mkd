@@ -54,6 +54,8 @@ They are formated using [yaml][].
 
 Between metadata and the `/~/` line, you can put a slug which will appear on frontpage.
 
+Finally, you should put posts in a `posts` folder, breves in a `breves` folder and pages in a `pages` one.
+
 As you've probably already understood, you'll need the following python librairies :
 
 - [bottle][]
