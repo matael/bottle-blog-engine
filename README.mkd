@@ -7,6 +7,25 @@ Before this project, my blog was powered by [toto][].
 One day, I decided to learn ruby in order to add categories and other few things.
 I finally give up ruby and decided to reimplement a blog engine in a [bottle][]
 
+Of course, the whole project (design included) is released under the WTFPL :
+
+
+                DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                        Version 2, December 2004
+
+     Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+
+     Everyone is permitted to copy and distribute verbatim or modified
+     copies of this license document, and changing it is allowed as long
+     as the name is changed.
+
+                DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+       TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+      0. You just DO WHAT THE FUCK YOU WANT TO.
+
+
+
 [toto]: http://cloudhead.io/toto
 [bottle]: http://bottlepy.org
 
@@ -63,4 +82,22 @@ Because sometimes it interresting to manage differently long and brieves posts, 
 
 That you have to know is that breves and posts share the same management and the number of different types will soon be extended (hashtables are... __powerfull__).
 
+### Comments
 
+Comments are powered by disqus, you should modify the `DISQUS` variable in the `settings.py` file.
+
+### Versionning
+
+Of course, versionning is powered using git. You really should learn that if you're not already aware of this powerfull tool.
+
+
+# Designing
+
+Of course, you can customize this tool as you want.
+
+## Settings
+
+Settings are in 2 parts :
+
+- The first part is contained in the `settings.py` file.
+- The second is in `base.html`
