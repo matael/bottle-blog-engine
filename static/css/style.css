@@ -1,0 +1,231 @@
+body {
+    width: 1000px;
+    color: #1c1c1c;
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #1c1c1c;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #b83000
+}
+
+body > header h1 {
+    text-align: center;
+    color: #1c1c1c;
+    font-size: 4.5em;
+    margin: 0px 0 15px 0;
+}
+
+/* Headings */
+
+.post .content h1:before { post .content:"> "; }
+.post .content h1 {
+	font-size: 1.3em;
+	border-left: 7px #c1c1c1 solid;
+	padding-left : 10px;
+}
+.post .content h2:before { post .content:">> "; }
+.post .content h2 { 
+	font-size: 1.2em;
+	border-left: 6px #c1c1c1 solid;
+	padding-left : 10px;
+}
+
+.post .content h3:before { post .content:">>> "; }
+.post .content h3 { 
+	font-size: 1.1em;
+	border-left: 5px #c1c1c1 solid;
+	padding-left : 10px;
+}
+
+/* homepage */
+
+#hp_breves {
+    float: right;
+    width: 300px;
+    border-left: 2px solid #c1c1c1;
+    border-bottom: 2px solid #c1c1c1;
+    border-radius: 0 0 0 30px;
+    padding: 0 0 15px 15px;
+}
+
+#hp_breves > h1 {
+    border-bottom: 1px solid #c1c1c1;
+    font-size: 1.4em;
+    text-align: center;
+    color: #1c1c1c;
+}
+
+
+#hp_breves a {
+    font-style: italic;
+}
+
+#hp_posts {
+    text-align: justify;
+    width: 650px;
+    margin-right: 50px;
+}
+
+.post .header h1{
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    border-left: 5px solid black;
+}
+
+.post .body p:first-child {
+    margin-top: 0;
+}
+
+.post .body p:last-child {
+    margin-bottom: 0;
+}
+
+.post {
+    margin-bottom: 30px;
+}
+
+.post:last-child {
+    margin-bottom: 10px;
+}
+
+.post p {
+    margin: 10px 0;
+    text-align: justify;
+    font-size: 0.93em;
+}
+
+.post .more {
+    margin-top: -10px;
+    margin-right: 30px;
+    font-style: italic;
+    text-align: right;
+}
+
+.more a, body > footer > a {
+    font-weight: normal;
+    text-decoration: none;
+    color: #b83000;
+}
+.more a:hover, body > footer > a:hover { text-decoration: underline }
+
+.post .date, .archive_list .date {
+    font-style: italic;
+    float: right;
+    line-height: 43px;
+}
+
+.breve {
+    margin-bottom: 30px;
+    width: 500px;
+    margin:auto;
+}
+
+.breve .header h1{
+    margin-bottom: 0px;
+    border-right: 5px solid black;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.breve .body p:first-child {
+    margin-top: 0;
+}
+
+.breve .body p:last-child {
+    margin-bottom: 0;
+}
+
+.breve:last-child {
+    margin-bottom: 10px;
+}
+
+.breve p, .page p {
+    text-indent: 30px;
+    margin: 10px 0;
+    text-align: justify;
+    font-size: 0.93em;
+}
+
+.breve .date {
+    font-style: italic;
+    text-align: right;
+    line-height: 43px;
+    display: block;
+}
+
+.page {
+    width:810px;
+    margin: auto;
+}
+
+.page h1{
+    text-align: center;
+    color: #b83000;
+    font-size: 2.3em;
+    border-bottom: 1px solid #b83000;
+    width: 50%;
+    margin:auto;
+}
+
+/* footer */
+
+
+body > footer {
+    text-align: center;
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 18px;
+    color: #888;
+}
+
+/* Links */
+
+#links {
+    width: 950px;
+    height:40px;
+    text-align: right;
+    font-weight: bold;
+    margin-top:25px;
+    color: #c1c1c1;
+}
+
+#links ul, #links li {
+    list-style-type : none;
+    display: inline;
+}
+
+#links a {
+    text-decoration:none;
+    color:#c1c1c1;
+}
+
+#links:hover a {
+    color: #1c1c1c;
+}
+
+#links:hover {
+    color: #1c1c1c;
+}
+
+#links a:hover {
+  color: #b83000;
+}
+
+#links a img {
+	border:none
+}
+
+/* Archives */
+
+.archive_list {
+    list-style-type: circle;
+}
+
+
+/* vim: set sw=4 ts=4 et autoindent:*/
