@@ -1,14 +1,15 @@
 {% extends "templates/base.html" %}
 
 {% block body %}
-	{% if code.status==404 %}
-		<h1>404, Page Not Found</h1>
-		<p>It looks like you've tried to access nil...</p>
-	{% else %}{% if code.status==500 %}
-		<h1>500, Internal Server Error</h1>
-		<p>Learning includes mistakes...</p>
-	{% endif %}{% endif %}
-
+    <article class="breve">
+        {% if code.status==404 %}
+            <h1>404, Page Not Found</h1>
+            <p>It looks like you've tried to access nil...</p>
+        {% else %}{% if code.status==500 %}
+            <h1>500, Internal Server Error</h1>
+            <p>Learning includes mistakes...</p>
+        {% endif %}{% endif %}
+    </article>
 {% endblock %}
 
 {#
