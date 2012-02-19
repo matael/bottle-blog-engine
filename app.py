@@ -134,6 +134,31 @@ def page_view(name):
     return template("templates/page.html", content=markdown(source_file.read()), name=name)
 
 
+@application.route('/archives')
+def archives():
+    """ Power an archive page """
+    contents_lists = {'posts':[], 'breves':[]}
+    for k in contents_lists.keys():
+        items_list = os.listdir(k)
+        items_list.sort()
+        items_list.reverse()
+        reading = []
+        for i in items_list:
+            current_file = open("{}/{}".format(k,i),'r')
+            line = current_file.readline()
+            while line!="\n":
+                reading.append(line)
+                line = current_file.readline()
+            reading = yaml.load(''.join(reading))
+            reading['url'] = re.sub(r'-','/',i).rstrip(".mkd")
+            current_file.close()
+            (contents_lists[k]).append(reading)
+            reading = []
+
+    return template('templates/archives.html', contents_lists = contents_lists)
+    
+
+
 def main():
     """ Run the application
 
