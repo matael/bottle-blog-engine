@@ -15,7 +15,7 @@
         {% for item in contents_lists['posts'] %}
             <article class="post">
               <div class="header">
-                  <h1><a href="/p/{{item['url']}}">{{item['title']}}</a></h1>
+                  <h1><a href="/p/{{item['date']}}/{{item['url']}}">{{item['title']}}</a></h1>
               </div>
 
               <section class="content">

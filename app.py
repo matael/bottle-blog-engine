@@ -36,7 +36,7 @@ def create_url(filename):
 @application.route('/static/<filename:path>')
 def static(filename):
     """ Serve static files """
-    return static_file(filename, root='{}/static'.format(ROOT_PATH))
+    return static_file(filename, root='{}/static/'.format(ROOT_PATH))
 
 
 @application.error(500)
