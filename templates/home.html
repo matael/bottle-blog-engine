@@ -5,7 +5,7 @@
             <ul>
             {% for item in contents_lists['breves'] %}
                 <li><a 
-                    href="/b/{{item['url']}}"
+					href="/b/{{item['date']}}/{{item['url']}}"
                     title="{{item['title']}}">{{item['title']}}</a>
                 </li>   
             {% endfor %}
