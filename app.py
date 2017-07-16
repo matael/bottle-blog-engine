@@ -18,8 +18,7 @@ from bottle import\
         request,\
         redirect,\
         HTTPError,\
-        HTTPResponse,\
-        response
+        HTTPResponse
 
 #Uncomment to run in a WSGI server
 #os.chdir(os.path.dirname(__file__))
@@ -37,8 +36,6 @@ def create_url(filename):
 @application.route('/static/<filename:path>')
 def static(filename):
     """ Serve static files """
-    print 'Root: {}/static/'.format(ROOT_PATH)
-    print 'Filename: {}'.format(filename)
     return static_file(filename, root='{}/static/'.format(ROOT_PATH))
 
 
@@ -47,7 +44,6 @@ def static(filename):
 def errors(code):
     """ Handler for errors"""
     print 'Error: %s' % code
-#    return 'Oops, something went wrong...'
     return template("templates/error.html", code=code)
 
 
