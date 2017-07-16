@@ -1,3 +1,4 @@
+#test
 # Settings file for bobe
 
 ROOT_PATH=''
