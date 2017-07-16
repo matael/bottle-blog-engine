@@ -43,7 +43,6 @@ def static(filename):
 @application.error(404)
 def errors(code):
     """ Handler for errors"""
-    print 'Error: %s' % code
     return template("templates/error.html", code=code)
 
 
