@@ -18,9 +18,10 @@ from bottle import\
         request,\
         redirect,\
         HTTPError,\
-        HTTPResponse
+        HTTPResponse,\
+        response
 
-# Uncomment to run in a WSGI server
+#Uncomment to run in a WSGI server
 #os.chdir(os.path.dirname(__file__))
 
 application = Bottle()
@@ -36,6 +37,8 @@ def create_url(filename):
 @application.route('/static/<filename:path>')
 def static(filename):
     """ Serve static files """
+    print 'Root: {}/static/'.format(ROOT_PATH)
+    print 'Filename: {}'.format(filename)
     return static_file(filename, root='{}/static/'.format(ROOT_PATH))
 
 
@@ -43,6 +46,8 @@ def static(filename):
 @application.error(404)
 def errors(code):
     """ Handler for errors"""
+    print 'Error: %s' % code
+#    return 'Oops, something went wrong...'
     return template("templates/error.html", code=code)
 
 
@@ -98,13 +103,53 @@ def view_post(type, day, month, year, name):
         meta_brut.append(text.pop(0))
         line = text[0]
     meta = yaml.load(''.join(meta_brut))
-    meta['date'] = FORMAT_DATE.format(month, day, year)
+#    meta['date'] = FORMAT_DATE.format(month, day, year)
     text.pop(text.index("~\n"))
     text = markdown(''.join(text))
-   
+
     # output
     return template('templates/{}.html'.format(type), text=text, meta=meta, disqus=DISQUS)
 
+
+@application.get('/post')
+def new_post():
+    return template('templates/new.html')
+
+@application.post('/post')
+def do_post():
+    expected_username   = ADMIN_USERNAME
+    expected_password   = ADMIN_PASSWORD
+    supplied_username   = request.forms.get('username')
+    supplied_password   = request.forms.get('password')
+    supplied_title      = request.forms.get('title')
+    supplied_author     = request.forms.get('author')
+    supplied_tags       = request.forms.get('tags')
+    supplied_summary    = request.forms.get('summary')
+    supplied_markdown   = request.forms.get('content')
+
+    if not expected_username or not expected_password:
+        raise Exception('Invalid server configuration. Unable to continue.')
+    else:
+        if supplied_username == expected_username and supplied_password == expected_password:
+            from datetime import datetime
+            now = datetime.now()
+            yaml_filename = now.strftime("%Y-%m-%d_%H-%M.yml")
+            markdown_filename = now.strftime("%Y-%m-%d_%H-%M.mkd")
+            post_date = now.strftime(DATE_FORMAT)
+            response.content_type = 'text/plain; charset=UTF8'
+            post_data = {
+                'title'     : supplied_title,
+                'author'    : supplied_author,
+                'date'      : post_date,
+                'tags'      : supplied_tags,
+                'summary'   : supplied_summary,
+                'content'   : markdown_filename
+            }
+            yaml_data = yaml.dump(post_data,default_flow_style=False)
+            return '{}:\n{}\n\n{}:\n{}'.format(yaml_filename,yaml_data,markdown_filename,supplied_markdown)
+            #return 'Title: {}\nAuthor: {}\nDate:{}\nTags:{}\n\nContent:\n{}'.format(supplied_title,supplied_author,supplied_date,supplied_tags,supplied_content)
+        else:
+            return 'Invalid username or password.'
 
 @application.route('/c/<name>')
 def view_category(name):
@@ -168,7 +213,7 @@ def archives():
             reading = []
 
     return template('templates/archives.html', contents_lists = contents_lists)
-    
+
 
 
 def main():

@@ -1,0 +1,17 @@
+{% extends 'templates/base.html' %}
+{% block body %}
+<form action="/post" method="post">
+  Username: <input type="text" name="username"><br>
+  Password: <input type="password" name="password"><br>
+  Title:  <input type="text" name="title"><br>
+  Author: <input type="text" name="author"><br>
+  Tags:   <input type="text" name="tags"><br>
+  Summary: <input type="text" name="summary">
+  <br>
+  Content:<br>
+  <textarea name="content" cols="130" rows="35"></textarea>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
