@@ -103,3 +103,9 @@ Settings are in 2 parts :
 
 - The first part is contained in the `settings.py` file.
 - The second is in `base.html`
+
+# Contributors !
+
+Thanks a lot !
+
+- @ChadBailey 
