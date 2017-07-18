@@ -14,17 +14,15 @@ from bottle import\
         jinja2_template as template,\
         static_file,\
         error,\
-        debug,\
         request,\
         redirect,\
         HTTPError,\
         HTTPResponse
 
-# Uncomment to run in a WSGI server
+#Uncomment to run in a WSGI server
 #os.chdir(os.path.dirname(__file__))
 
 application = Bottle()
-debug(True)
 
 def create_url(filename):
     """ Extract a correct URL from a filename """
@@ -36,7 +34,9 @@ def create_url(filename):
 @application.route('/static/<filename:path>')
 def static(filename):
     """ Serve static files """
-    return static_file(filename, root='{}/static/'.format(ROOT_PATH))
+    cwd = os.getcwd()
+    root = os.path.join(cwd,'static')
+    return static_file(filename, root=root)
 
 
 @application.error(500)
@@ -44,7 +44,6 @@ def static(filename):
 def errors(code):
     """ Handler for errors"""
     return template("templates/error.html", code=code)
-
 
 @application.route('/')
 def home():
@@ -101,7 +100,7 @@ def view_post(type, day, month, year, name):
     meta['date'] = FORMAT_DATE.format(month, day, year)
     text.pop(text.index("~\n"))
     text = markdown(''.join(text))
-   
+
     # output
     return template('templates/{}.html'.format(type), text=text, meta=meta, disqus=DISQUS)
 
@@ -168,16 +167,16 @@ def archives():
             reading = []
 
     return template('templates/archives.html', contents_lists = contents_lists)
-    
+
 
 
 def main():
     """ Run the application
 
-    Use : 
+    Use :
         $ python app.py
     """
-    run(application, host='0.0.0.0', port=8080)
+    run(application, host='0.0.0.0', port=8080, debug=True)
     return 0
 
 if __name__ == '__main__':
