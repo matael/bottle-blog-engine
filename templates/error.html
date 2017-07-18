@@ -3,10 +3,10 @@
 {% block body %}
     <article class="breve">
         <h1>Error</h1>
-        {% if code.status==404 %}
+        {% if code._status_code==404 %}
             <h1>404, Page Not Found</h1>
             <p>It looks like you've tried to access nil...</p>
-        {% else %}{% if code.status==500 %}
+        {% else %}{% if code._status_code==500 %}
             <h1>500, Internal Server Error</h1>
             <p>Learning includes mistakes...</p>
         {% endif %}{% endif %}

@@ -6,7 +6,9 @@ import os
 import codecs
 import yaml
 import re
+import pprint
 from markdown import markdown
+import bottle
 from bottle import\
         Bottle,\
         run,\
@@ -14,17 +16,16 @@ from bottle import\
         jinja2_template as template,\
         static_file,\
         error,\
-        debug,\
         request,\
         redirect,\
         HTTPError,\
-        HTTPResponse
+        HTTPResponse,\
+        abort
 
 #Uncomment to run in a WSGI server
 #os.chdir(os.path.dirname(__file__))
 
 application = Bottle()
-debug(True)
 
 def create_url(filename):
     """ Extract a correct URL from a filename """
@@ -46,7 +47,6 @@ def static(filename):
 def errors(code):
     """ Handler for errors"""
     return template("templates/error.html", code=code)
-
 
 @application.route('/')
 def home():
@@ -176,10 +176,10 @@ def archives():
 def main():
     """ Run the application
 
-    Use : 
+    Use :
         $ python app.py
     """
-    run(application, host='0.0.0.0', port=8080)
+    run(application, host='0.0.0.0', port=8080, debug=True)
     return 0
 
 if __name__ == '__main__':
