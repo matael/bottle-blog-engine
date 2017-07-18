@@ -7,7 +7,6 @@ import codecs
 import yaml
 import re
 from markdown import markdown
-import bottle
 from bottle import\
         Bottle,\
         run,\
