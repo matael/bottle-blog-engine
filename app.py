@@ -6,7 +6,6 @@ import os
 import codecs
 import yaml
 import re
-import pprint
 from markdown import markdown
 import bottle
 from bottle import\
@@ -19,8 +18,7 @@ from bottle import\
         request,\
         redirect,\
         HTTPError,\
-        HTTPResponse,\
-        abort
+        HTTPResponse
 
 #Uncomment to run in a WSGI server
 #os.chdir(os.path.dirname(__file__))
